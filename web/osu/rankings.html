@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- TODO: Make website more pretty-->
+        <!-- TODO: Use specific mods (get data script related)-->
+        <meta charset="UTF-8">
+        <meta name="keywords" content="osu ctb osu!ctb">
+        <meta name="description" content="osu!ctb Replays Watched Rankings">
+        <meta name="author" content="K3">
+
+        <title>osu!ctb | Replays Watched Rankings</title>
+        <link rel="shortcut icon" type="image/png" href="./img/favicon.png"/>
+
+        <link rel="stylesheet" type="text/css" href="./style/style.css">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    
+        <script>
+            $(document).ready(function() {
+                $('#getJson').click(function(){
+                    // TODO: Include json data with html files
+                    $.getJSON('./data/main.json', function(data) {
+                        $("#dAmount").append(data[data.length - 1].global_rank + " players");
+
+                        sorting = localStorage.getItem("sortby");
+                        data.sort(function(a, b) {
+                            if (sorting == "rank")
+                                return a.global_rank - b.global_rank;
+                            if (sorting == "replay")
+                                return b.replays_watched_by_others - a.replays_watched_by_others;
+                            if (sorting == "first")
+                                return b.scores_first_count - a.scores_first_count;
+                            if (sorting == "rscore")
+                                return b.ranked_score - a.ranked_score;
+                            if (sorting == "tscore")
+                                return b.total_score - a.total_score;
+                            if (sorting == "level")
+                                return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
+                            if (sorting == "grade")
+                                return (b.grade_counts.ssh + b.grade_counts.ss) - (a.grade_counts.ssh + a.grade_counts.ss);
+                            if (sorting == "mcombo")
+                                return b.maximum_combo - a.maximum_combo;
+                            if (sorting == "thits")
+                                return b.total_hits - a.total_hits;
+                        });
+                        
+                        for (var i = 50 * parseInt(localStorage.getItem("page")); i < 50 * (parseInt(localStorage.getItem("page")) + 1); i++) {
+                            var tblRow = "<tr>"
+                                + "<td>" + (i + 1) + "</td>"
+                                + "<td>#" + data[i].global_rank + " (" + Math.floor(data[i].pp) + " pp)</td>"
+                                + "<td>" + data[i].user.country.name + "</td>"
+                                + "<td><a href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
+                                + "<td>" + data[i].replays_watched_by_others + "</td>"
+                                + "<td>" + data[i].scores_first_count + "</td>"
+                                + "<td>" + data[i].ranked_score + "</td>"
+                                + "<td>" + data[i].total_score + "</td>"
+                                + "<td>" + data[i].level.current + " (" + data[i].level.progress + "%) </td>"
+                                + "<td>" + (data[i].grade_counts.ssh + data[i].grade_counts.ss) + "</td>"
+                                + "<td>" + data[i].maximum_combo + "x</td>"
+                                + "<td>" + data[i].total_hits + "</td>"
+                            $(tblRow).appendTo("#userdata tbody");
+                        }
+                    });
+                });
+
+                $('#cNext').click(function(){
+                    localStorage.setItem("page", parseInt(localStorage.getItem("page")) + 1);
+                    $('#getJson').click();
+                });
+                if (!(window.location.href.split('#').length > 1)) {
+                    localStorage.clear();
+                    localStorage.setItem("sortby", "rank");
+                    window.location.href = "#";
+                }
+                $('#cNext').click();
+                localStorage.setItem("page", 0);
+
+                $('#tRank').click(function(){
+                    localStorage.setItem("sortby", "rank");
+                    window.location.reload();
+                });
+
+                $('#tReplay').click(function(){
+                    localStorage.setItem("sortby", "replay");
+                    window.location.reload();
+                });
+
+                $('#tFirst').click(function(){
+                    localStorage.setItem("sortby", "first");
+                    window.location.reload();
+                });
+
+                $('#trScore').click(function(){
+                    localStorage.setItem("sortby", "rscore");
+                    window.location.reload();
+                });
+
+                $('#ttScore').click(function(){
+                    localStorage.setItem("sortby", "tscore");
+                    window.location.reload();
+                });
+
+                $('#tLevel').click(function(){
+                    localStorage.setItem("sortby", "level");
+                    window.location.reload();
+                });
+
+                $('#tGrade').click(function(){
+                    localStorage.setItem("sortby", "grade");
+                    window.location.reload();
+                });
+
+                $('#tMCombo').click(function(){
+                    localStorage.setItem("sortby", "mcombo");
+                    window.location.reload();
+                });
+
+                $('#tTHits').click(function(){
+                    localStorage.setItem("sortby", "thits");
+                    window.location.reload();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div style="display: none" id="getJson"></div>
+        <h1 id="back"><a href=".">Back</a></h1>
+        <h1 id="dAmount">Data Amount: </h1>
+        <!--<h1 id="lUpdate">Last Updated: TODO</h1>
+        <h1 id="nUpdate">Next Update: TODO</h1>-->
+        <table id= "userdata" border="2">
+            <thead>
+                <th>Count</th>
+                <th>Global Rank<button type="button" id="tRank">/\</button></th>
+                <th>Country</th>
+                <th>Name</th>
+                <th>Replays Watched<button type="button" id="tReplay">/\</button></th>
+                <th>First Place<button type="button" id="tFirst">/\</button></th>
+                <th>Ranked Score<button type="button" id="trScore">/\</button></th>
+                <th>Total Score<button type="button" id="ttScore">/\</button></th>
+                <th>Level<button type="button" id="tLevel">/\</button></th>
+                <th>SS Count<button type="button" id="tGrade">/\</button></th>
+                <th>Maximum Combo<button type="button" id="tMCombo">/\</button></th>
+                <th>Total Hits<button type="button" id="tTHits">/\</button></th>
+                <!--<th>TODO: NoMod<button type="button" id="tNM">/\</button></th>
+                <th>TODO: Hidden<button type="button" id="tHD">/\</button></th>
+                <th>TODO: Hardrock<button type="button" id="tHR">/\</button></th>
+                <th>TODO: Doubletime<button type="button" id="tDT">/\</button></th>
+                <th>TODO: Nightcore<button type="button" id="tNC">/\</button></th>
+                <th>TODO: Flashlight<button type="button" id="tFL">/\</button></th>
+                <th>TODO: Easy<button type="button" id="tEZ">/\</button></th>
+                <th>TODO: Nofail<button type="button" id="tNF">/\</button></th>
+                <th>TODO: Halftime<button type="button" id="tHT">/\</button></th>-->
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button type="button" id="cNext">Show More</button>
+    </body>
+</html>

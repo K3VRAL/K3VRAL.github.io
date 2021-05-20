@@ -1,0 +1,45 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #111111;
+}
+
+table {
+    color:#CCC;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #2c2c2c;
+}
+
+tr {
+    background: #2c2c2c;
+    border-top: 1em solid transparent;
+}
+
+tr:hover {
+    background: #535353;
+    border-top: 1em solid transparent;
+}
+
+td {
+    color:#CCC;
+    border: none;
+}
+
+td:hover {
+    background: #d3d3ff44;
+    color:#CCC;
+    border: none;
+}
+
+a:link, a:visited {
+    color: #5555ff;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    color: #CCC;
+}
