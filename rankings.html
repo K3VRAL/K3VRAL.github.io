@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- TODO: Make website more pretty-->
-        <!-- TODO: Use specific mods (get data script related)-->
         <meta charset="UTF-8">
         <meta name="keywords" content="osu ctb osu!ctb">
         <meta name="description" content="osu!ctb Replays Watched Rankings">
@@ -18,7 +16,6 @@
         <script>
             $(document).ready(function() {
                 $('#getJson').click(function(){
-                    // TODO: Include json data with html files
                     $.getJSON('./data/main.json', function(data) {
                         $("#dAmount").append(data[data.length - 1].global_rank + " players");
 
@@ -46,18 +43,18 @@
                         
                         for (var i = 50 * parseInt(localStorage.getItem("page")); i < 50 * (parseInt(localStorage.getItem("page")) + 1); i++) {
                             var tblRow = "<tr>"
-                                + "<td>" + (i + 1) + "</td>"
-                                + "<td>#" + data[i].global_rank + " (" + Math.floor(data[i].pp) + " pp)</td>"
+                                + "<td>" + (i + 1).toLocaleString() + "</td>"
+                                + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
-                                + "<td>" + data[i].replays_watched_by_others + "</td>"
-                                + "<td>" + data[i].scores_first_count + "</td>"
-                                + "<td>" + data[i].ranked_score + "</td>"
-                                + "<td>" + data[i].total_score + "</td>"
+                                + "<td>" + data[i].replays_watched_by_others.toLocaleString() + "</td>"
+                                + "<td>" + data[i].scores_first_count.toLocaleString() + "</td>"
+                                + "<td>" + data[i].ranked_score.toLocaleString() + "</td>"
+                                + "<td>" + data[i].total_score.toLocaleString() + "</td>"
                                 + "<td>" + data[i].level.current + " (" + data[i].level.progress + "%) </td>"
-                                + "<td>" + (data[i].grade_counts.ssh + data[i].grade_counts.ss) + "</td>"
-                                + "<td>" + data[i].maximum_combo + "x</td>"
-                                + "<td>" + data[i].total_hits + "</td>"
+                                + "<td>" + (data[i].grade_counts.ssh + data[i].grade_counts.ss).toLocaleString() + "</td>"
+                                + "<td>" + data[i].maximum_combo.toLocaleString() + "x</td>"
+                                + "<td>" + data[i].total_hits.toLocaleString() + "</td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
@@ -126,8 +123,6 @@
         <div style="display: none" id="getJson"></div>
         <h1 id="back"><a href=".">Back</a></h1>
         <h1 id="dAmount">Data Amount: </h1>
-        <!--<h1 id="lUpdate">Last Updated: TODO</h1>
-        <h1 id="nUpdate">Next Update: TODO</h1>-->
         <table id= "userdata" border="2">
             <thead>
                 <th>Count</th>
@@ -142,15 +137,6 @@
                 <th>SS Count<button type="button" id="tGrade">/\</button></th>
                 <th>Maximum Combo<button type="button" id="tMCombo">/\</button></th>
                 <th>Total Hits<button type="button" id="tTHits">/\</button></th>
-                <!--<th>TODO: NoMod<button type="button" id="tNM">/\</button></th>
-                <th>TODO: Hidden<button type="button" id="tHD">/\</button></th>
-                <th>TODO: Hardrock<button type="button" id="tHR">/\</button></th>
-                <th>TODO: Doubletime<button type="button" id="tDT">/\</button></th>
-                <th>TODO: Nightcore<button type="button" id="tNC">/\</button></th>
-                <th>TODO: Flashlight<button type="button" id="tFL">/\</button></th>
-                <th>TODO: Easy<button type="button" id="tEZ">/\</button></th>
-                <th>TODO: Nofail<button type="button" id="tNF">/\</button></th>
-                <th>TODO: Halftime<button type="button" id="tHT">/\</button></th>-->
             </thead>
             <tbody></tbody>
         </table>
