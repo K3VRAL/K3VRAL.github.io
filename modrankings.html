@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="osu ctb osu!ctb">
+        <meta name="description" content="osu!ctb Replays Watched Rankings">
+        <meta name="author" content="K3">
+
+        <title>osu!ctb | Replays Watched Rankings</title>
+        <link rel="shortcut icon" type="image/png" href="./img/favicon.png"/>
+
+        <link rel="stylesheet" type="text/css" href="./style/style.css">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    
+        <script>
+            $(document).ready(function() {
+                $('#getJson').click(function(){
+                    // TODO: Include json data with html files
+                    $.getJSON('./data/main.json', function(data) {
+                        $("#dAmount").append(data[data.length - 1].global_rank + " players");
+
+                        sorting = localStorage.getItem("sortby");
+                        data.sort(function(a, b) {
+                            if (sorting == "rank")
+                                return a.global_rank - b.global_rank;
+                        });
+                        
+                        for (var i = 50 * parseInt(localStorage.getItem("page")); i < 50 * (parseInt(localStorage.getItem("page")) + 1); i++) {
+                            var tblRow = "<tr>"
+                                + "<td>" + (i + 1).toLocaleString() + "</td>"
+                                + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
+                                + "<td>" + data[i].user.country.name + "</td>"
+                                + "<td><a href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
+                            $(tblRow).appendTo("#userdata tbody");
+                        }
+                    });
+                });
+
+                $('#cNext').click(function(){
+                    localStorage.setItem("page", parseInt(localStorage.getItem("page")) + 1);
+                    $('#getJson').click();
+                });
+                if (!(window.location.href.split('#').length > 1)) {
+                    localStorage.clear();
+                    localStorage.setItem("sortby", "rank");
+                    window.location.href = "#";
+                }
+                $('#cNext').click();
+                localStorage.setItem("page", 0);
+            });
+        </script>
+    </head>
+    <body>
+        <div style="display: none" id="getJson"></div>
+        <h1 id="back"><a href=".">Back</a></h1>
+        <h1 id="dAmount">Data Amount: </h1>
+        <table id= "userdata" border="2">
+            <thead>
+                <th>Count</th>
+                <th>Global Rank</th>
+                <th>Country</th>
+                <th>Name</th>
+                <th>NoMod<button type="button" id="tNM">/\</button></th>
+                <th>Hidden<button type="button" id="tHD">/\</button></th>
+                <th>Hardrock<button type="button" id="tHR">/\</button></th>
+                <th>Doubletime<button type="button" id="tDT">/\</button></th>
+                <th>Nightcore<button type="button" id="tNC">/\</button></th>
+                <th>Flashlight<button type="button" id="tFL">/\</button></th>
+                <th>Easy<button type="button" id="tEZ">/\</button></th>
+                <th>Nofail<button type="button" id="tNF">/\</button></th>
+                <th>Halftime<button type="button" id="tHT">/\</button></th>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button type="button" id="cNext">Show More</button>
+    </body>
+</html>
