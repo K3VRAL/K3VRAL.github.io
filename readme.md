@@ -1,2 +1,2 @@
-Website: https://osu.ctb.sh
-TODO: Also need use malody.ctb.sh for malody
+Website: https://ctb.sh
+TODO: Also need use osu.ctb.sh and malody.ctb.sh
