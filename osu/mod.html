@@ -32,6 +32,15 @@
                                 + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a id=\"usrid\" href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
+                                + "<td></td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
@@ -55,7 +64,7 @@
         <div id="header"></div>
         <div style="display: none" id="getJson"></div>
         <h1 id="back"><a href=".">Back</a></h1>
-        <h1>TODO</h1>
+        <h1>TODO: Get Mod Data</h1>
         <h1 id="dAmount">Data Amount: </h1>
         <table id= "userdata" border="2">
             <thead>
