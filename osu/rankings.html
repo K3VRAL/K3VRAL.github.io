@@ -24,21 +24,21 @@
                         data.sort(function(a, b) {
                             if (sorting == "rank")
                                 return a.global_rank - b.global_rank;
-                            if (sorting == "replay")
+                            else if (sorting == "replay")
                                 return b.replays_watched_by_others - a.replays_watched_by_others;
-                            if (sorting == "first")
+                            else if (sorting == "first")
                                 return b.scores_first_count - a.scores_first_count;
-                            if (sorting == "rscore")
+                            else if (sorting == "rscore")
                                 return b.ranked_score - a.ranked_score;
-                            if (sorting == "tscore")
+                            else if (sorting == "tscore")
                                 return b.total_score - a.total_score;
-                            if (sorting == "level")
+                            else if (sorting == "level")
                                 return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
-                            if (sorting == "grade")
+                            else if (sorting == "grade")
                                 return (b.grade_counts.ssh + b.grade_counts.ss) - (a.grade_counts.ssh + a.grade_counts.ss);
-                            if (sorting == "mcombo")
+                            else if (sorting == "mcombo")
                                 return b.maximum_combo - a.maximum_combo;
-                            if (sorting == "thits")
+                            else if (sorting == "thits")
                                 return b.total_hits - a.total_hits;
                         });
                         
@@ -72,51 +72,6 @@
                 }
                 $('#cNext').click();
                 localStorage.setItem("page", 0);
-
-                $('#tRank').click(function(){
-                    localStorage.setItem("sortby", "rank");
-                    window.location.reload();
-                });
-
-                $('#tReplay').click(function(){
-                    localStorage.setItem("sortby", "replay");
-                    window.location.reload();
-                });
-
-                $('#tFirst').click(function(){
-                    localStorage.setItem("sortby", "first");
-                    window.location.reload();
-                });
-
-                $('#trScore').click(function(){
-                    localStorage.setItem("sortby", "rscore");
-                    window.location.reload();
-                });
-
-                $('#ttScore').click(function(){
-                    localStorage.setItem("sortby", "tscore");
-                    window.location.reload();
-                });
-
-                $('#tLevel').click(function(){
-                    localStorage.setItem("sortby", "level");
-                    window.location.reload();
-                });
-
-                $('#tGrade').click(function(){
-                    localStorage.setItem("sortby", "grade");
-                    window.location.reload();
-                });
-
-                $('#tMCombo').click(function(){
-                    localStorage.setItem("sortby", "mcombo");
-                    window.location.reload();
-                });
-
-                $('#tTHits').click(function(){
-                    localStorage.setItem("sortby", "thits");
-                    window.location.reload();
-                });
             });
         </script>
     </head>
@@ -128,17 +83,17 @@
         <table id= "userdata" border="2">
             <thead>
                 <th>Count</th>
-                <th>Global Rank<button type="button" id="tRank">/\</button></th>
+                <th>Global Rank<button type="button" onclick="localStorage.setItem('sortby', 'rank'); window.location.reload();">/\</button></th>
                 <th>Country</th>
                 <th>Name</th>
-                <th>Replays Watched<button type="button" id="tReplay">/\</button></th>
-                <th>First Place<button type="button" id="tFirst">/\</button></th>
-                <th>Ranked Score<button type="button" id="trScore">/\</button></th>
-                <th>Total Score<button type="button" id="ttScore">/\</button></th>
-                <th>Level<button type="button" id="tLevel">/\</button></th>
-                <th>SS Count<button type="button" id="tGrade">/\</button></th>
-                <th>Maximum Combo<button type="button" id="tMCombo">/\</button></th>
-                <th>Total Hits<button type="button" id="tTHits">/\</button></th>
+                <th>Replays Watched<button type="button" onclick="localStorage.setItem('sortby', 'replay'); window.location.reload();">/\</button></th>
+                <th>First Place<button type="button" onclick="localStorage.setItem('sortby', 'first'); window.location.reload();">/\</button></th>
+                <th>Ranked Score<button type="button" onclick="localStorage.setItem('sortby', 'rscore'); window.location.reload();">/\</button></th>
+                <th>Total Score<button type="button" onclick="localStorage.setItem('sortby', 'tscore'); window.location.reload();">/\</button></th>
+                <th>Level<button type="button" onclick="localStorage.setItem('sortby', 'level'); window.location.reload();">/\</button></th>
+                <th>SS/H Count<button type="button" onclick="localStorage.setItem('sortby', 'grade'); window.location.reload();">/\</button></th>
+                <th>Maximum Combo<button type="button" onclick="localStorage.setItem('sortby', 'mcombo'); window.location.reload();">/\</button></th>
+                <th>Total Hits<button type="button" onclick="localStorage.setItem('sortby', 'thits'); window.location.reload();">/\</button></th>
             </thead>
             <tbody></tbody>
         </table>

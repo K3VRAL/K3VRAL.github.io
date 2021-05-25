@@ -6,7 +6,7 @@
         <meta name="description" content="osu!ctb Replays Watched Rankings">
         <meta name="author" content="K3">
 
-        <title>osu!ctb | Replays Watched Rankings</title>
+        <title>osu!ctb</title>
         <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
 
         <link rel="stylesheet" type="text/css" href="/osu/style/style.css">
@@ -17,7 +17,6 @@
             $(document).ready(function() {
                 $("#header").load("/multi/header.html");
                 $('#getJson').click(function(){
-                    // TODO: Include json data with html files
                     $.getJSON('./data/main.json', function(data) {
                         $("#dAmount").append(data[data.length - 1].global_rank + " players");
 
