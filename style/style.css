@@ -43,3 +43,7 @@ h1 {
     padding: 0;
     color: #CCC;
 }
+
+p {
+    margin: 0;
+}
