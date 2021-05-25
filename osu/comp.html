@@ -42,7 +42,7 @@
                                 + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a id=\"usrid\" href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
-                                //+ "<td></td>"
+                                + "<td></td>"
                                 + "<td>" + data[i].grade_counts.ssh + "</td>"
                                 + "<td>" + data[i].grade_counts.ss + "</td>"
                                 + "<td>" + data[i].grade_counts.sh + "</td>"
@@ -80,7 +80,7 @@
                 <th>Global Rank<button type="button" onclick="localStorage.setItem('sortby', 'rank'); window.location.reload();">/\</button></th>
                 <th>Country</th>
                 <th>Name</th>
-                <!--<th>Completion<button type="button" onclick="localStorage.setItem('sortby', 'comp'); window.location.reload();">/\</button></th>-->
+                <th>Completion<button type="button" onclick="localStorage.setItem('sortby', 'comp'); window.location.reload();">/\</button></th>
                 <th>SSH<button type="button" onclick="localStorage.setItem('sortby', 'ssh'); window.location.reload();">/\</button></th>
                 <th>SS<button type="button" onclick="localStorage.setItem('sortby', 'ss'); window.location.reload();">/\</button></th>
                 <th>SH<button type="button" onclick="localStorage.setItem('sortby', 'sh'); window.location.reload();">/\</button></th>
