@@ -37,8 +37,16 @@
                                 return b.total_score - a.total_score;
                             else if (sorting == "level")
                                 return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
-                            else if (sorting == "grade")
-                                return (b.grade_counts.ssh + b.grade_counts.ss) - (a.grade_counts.ssh + a.grade_counts.ss);
+                            else if (sorting == "ssh")
+                                return b.grade_counts.ssh - a.grade_counts.ssh;
+                            else if (sorting == "ss")
+                                return b.grade_counts.ss - a.grade_counts.ss;
+                            else if (sorting == "sh")
+                                return b.grade_counts.sh - a.grade_counts.sh;
+                            else if (sorting == "s")
+                                return b.grade_counts.s - a.grade_counts.s;
+                            else if (sorting == "a")
+                                return b.grade_counts.a - a.grade_counts.a;
                             else if (sorting == "mcombo")
                                 return b.maximum_combo - a.maximum_combo;
                             else if (sorting == "thits")
@@ -56,9 +64,14 @@
                                 + "<td>" + data[i].ranked_score.toLocaleString() + "</td>"
                                 + "<td>" + data[i].total_score.toLocaleString() + "</td>"
                                 + "<td>" + data[i].level.current + " (" + data[i].level.progress + "%) </td>"
-                                + "<td>" + (data[i].grade_counts.ssh + data[i].grade_counts.ss).toLocaleString() + "</td>"
+                                + "<td>" + data[i].grade_counts.ssh + "</td>"
+                                + "<td>" + data[i].grade_counts.ss + "</td>"
+                                + "<td>" + data[i].grade_counts.sh + "</td>"
+                                + "<td>" + data[i].grade_counts.s + "</td>"
+                                + "<td>" + data[i].grade_counts.a + "</td>"
                                 + "<td>" + data[i].maximum_combo.toLocaleString() + "x</td>"
                                 + "<td>" + data[i].total_hits.toLocaleString() + "</td>"
+                                + "<td></td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
@@ -82,6 +95,7 @@
         <div id="header"></div>
         <div style="display: none" id="getJson"></div>
         <h1 id="back"><a href=".">Back</a></h1>
+        <h1>TODO: Get Medal Data</h1>
         <h1 id="dAmount">Data Amount: </h1>
         <table id= "userdata" border="2">
             <thead>
@@ -94,9 +108,14 @@
                 <th>Ranked Score<button type="button" onclick="localStorage.setItem('sortby', 'rscore'); window.location.reload();">/\</button></th>
                 <th>Total Score<button type="button" onclick="localStorage.setItem('sortby', 'tscore'); window.location.reload();">/\</button></th>
                 <th>Level<button type="button" onclick="localStorage.setItem('sortby', 'level'); window.location.reload();">/\</button></th>
-                <th>SS/H Count<button type="button" onclick="localStorage.setItem('sortby', 'grade'); window.location.reload();">/\</button></th>
+                <th>SSH<button type="button" onclick="localStorage.setItem('sortby', 'ssh'); window.location.reload();">/\</button></th>
+                <th>SS<button type="button" onclick="localStorage.setItem('sortby', 'ss'); window.location.reload();">/\</button></th>
+                <th>SH<button type="button" onclick="localStorage.setItem('sortby', 'sh'); window.location.reload();">/\</button></th>
+                <th>S<button type="button" onclick="localStorage.setItem('sortby', 's'); window.location.reload();">/\</button></th>
+                <th>A<button type="button" onclick="localStorage.setItem('sortby', 'a'); window.location.reload();">/\</button></th>
                 <th>Maximum Combo<button type="button" onclick="localStorage.setItem('sortby', 'mcombo'); window.location.reload();">/\</button></th>
                 <th>Total Hits<button type="button" onclick="localStorage.setItem('sortby', 'thits'); window.location.reload();">/\</button></th>
+                <th>Medal Count<button type="button" onclick="localStorage.setItem('sortby', 'medal'); window.location.reload();">/\</button></th>
             </thead>
             <tbody></tbody>
         </table>

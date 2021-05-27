@@ -25,6 +25,7 @@ tr:hover {
 td {
     color:#CCC;
     border: none;
+    text-align: center;
 }
 
 td:hover {
