@@ -42,7 +42,7 @@ td:hover {
 /* Tiles */
 .tiles {
     display: flex;
-    box-sizing: inherit;
+    flex-wrap: wrap;
 }
 
 .tile {
