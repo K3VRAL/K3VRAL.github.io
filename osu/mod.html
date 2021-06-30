@@ -19,20 +19,23 @@
 
         <script>
             $(document).ready(function() {
+                var file = "./data/mod.json";
                 $('#getJson').click(function(){
-                    $.getJSON('./data/mod.json', function(data) {
+                    $.getJSON(file, function(data) {
                         var req = new XMLHttpRequest();
-                        req.open("HEAD", "./data/mod.json", false);
+                        req.open("HEAD", file, false);
                         req.send(null);
                         if (req.status== 200)
                         {
                             $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
+                            $("#dAmount").append(data[data.length - 1].global_rank + " players");
                         }
                         else
                         {
                             $("#lUpdate").append("ERROR");
+                            $("#dAmount").append("ERROR");
+                            return;
                         }
-                        $("#dAmount").append(data[data.length - 1].global_rank + " players");
 
                         sorting = localStorage.getItem("sortby");
                         data.sort(function(a, b) {
