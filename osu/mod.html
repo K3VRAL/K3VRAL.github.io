@@ -20,7 +20,18 @@
         <script>
             $(document).ready(function() {
                 $('#getJson').click(function(){
-                    $.getJSON('./data/main.json', function(data) {
+                    $.getJSON('./data/mod.json', function(data) {
+                        var req = new XMLHttpRequest();
+                        req.open("HEAD", "./data/mod.json", false);
+                        req.send(null);
+                        if (req.status== 200)
+                        {
+                            $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
+                        }
+                        else
+                        {
+                            $("#lUpdate").append("ERROR");
+                        }
                         $("#dAmount").append(data[data.length - 1].global_rank + " players");
 
                         sorting = localStorage.getItem("sortby");
@@ -68,6 +79,7 @@
         <div style="display: none" id="getJson"></div>
         <h1 id="back"><a href=".">Back</a></h1>
         <h1>TODO: Get Mod Data</h1>
+        <h1 id="lUpdate">Last Updated: </h1>
         <h1 id="dAmount">Data Amount: </h1>
         <table id= "userdata" border="2">
             <thead>
