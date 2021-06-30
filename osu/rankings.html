@@ -25,32 +25,53 @@
 
                         sorting = localStorage.getItem("sortby");
                         data.sort(function(a, b) {
-                            if (sorting == "rank")
-                                return a.global_rank - b.global_rank;
-                            else if (sorting == "replay")
-                                return b.replays_watched_by_others - a.replays_watched_by_others;
-                            else if (sorting == "first")
-                                return b.scores_first_count - a.scores_first_count;
-                            else if (sorting == "rscore")
-                                return b.ranked_score - a.ranked_score;
-                            else if (sorting == "tscore")
-                                return b.total_score - a.total_score;
-                            else if (sorting == "level")
-                                return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
-                            else if (sorting == "ssh")
-                                return b.grade_counts.ssh - a.grade_counts.ssh;
-                            else if (sorting == "ss")
-                                return b.grade_counts.ss - a.grade_counts.ss;
-                            else if (sorting == "sh")
-                                return b.grade_counts.sh - a.grade_counts.sh;
-                            else if (sorting == "s")
-                                return b.grade_counts.s - a.grade_counts.s;
-                            else if (sorting == "a")
-                                return b.grade_counts.a - a.grade_counts.a;
-                            else if (sorting == "mcombo")
-                                return b.maximum_combo - a.maximum_combo;
-                            else if (sorting == "thits")
-                                return b.total_hits - a.total_hits;
+                            switch (sorting)
+                            {
+                                case "rank":
+                                    return a.global_rank - b.global_rank;
+                                    
+                                case "country":
+                                    return a.user.country.name.toUpperCase().localeCompare(b.user.country.name.toUpperCase());
+                                
+                                case "name":
+                                    return a.user.username.toUpperCase().localeCompare(b.user.username.toUpperCase());
+                                
+                                case "replay":
+                                    return b.replays_watched_by_others - a.replays_watched_by_others;
+                                
+                                case "first":
+                                    return b.scores_first_count - a.scores_first_count;
+                                
+                                case "rscore":
+                                    return b.ranked_score - a.ranked_score;
+                                
+                                case "tscore":
+                                    return b.total_score - a.total_score;
+                                
+                                case "level":
+                                    return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
+                                
+                                case "ssh":
+                                    return b.grade_counts.ssh - a.grade_counts.ssh;
+                                
+                                case "ss":
+                                    return b.grade_counts.ss - a.grade_counts.ss;
+                                
+                                case "sh":
+                                    return b.grade_counts.sh - a.grade_counts.sh;
+                                
+                                case "s":
+                                    return b.grade_counts.s - a.grade_counts.s;
+                                
+                                case "a":
+                                    return b.grade_counts.a - a.grade_counts.a;
+                                
+                                case "mcombo":
+                                    return b.maximum_combo - a.maximum_combo;
+                                
+                                case "thits":
+                                    return b.total_hits - a.total_hits;
+                            }
                         });
                         
                         for (var i = 50 * parseInt(localStorage.getItem("page")); i < 50 * (parseInt(localStorage.getItem("page")) + 1); i++) {
@@ -101,8 +122,8 @@
             <thead>
                 <th>Count</th>
                 <th>Global Rank<button type="button" onclick="localStorage.setItem('sortby', 'rank'); window.location.reload();">/\</button></th>
-                <th>Country</th>
-                <th>Name</th>
+                <th>Country<button type="button" onclick="localStorage.setItem('sortby', 'country'); window.location.reload();">/\</button></th>
+                <th>Name<button type="button" onclick="localStorage.setItem('sortby', 'name'); window.location.reload();">/\</button></th>
                 <th>Replays Watched<button type="button" onclick="localStorage.setItem('sortby', 'replay'); window.location.reload();">/\</button></th>
                 <th>First Place<button type="button" onclick="localStorage.setItem('sortby', 'first'); window.location.reload();">/\</button></th>
                 <th>Ranked Score<button type="button" onclick="localStorage.setItem('sortby', 'rscore'); window.location.reload();">/\</button></th>
