@@ -28,7 +28,7 @@
                         if (req.status== 200)
                         {
                             $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
-                            $("#dAmount").append(data[data.length - 1].global_rank + " players");
+                            $("#dAmount").append(data.length + " players");
                         }
                         else
                         {
