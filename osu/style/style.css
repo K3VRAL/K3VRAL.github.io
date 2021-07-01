@@ -3,6 +3,13 @@ html, body {
     background: #111111;
 }
 
+/* Title */
+#title {
+    text-align: center;
+    font-size: 50px;
+    color: #ffffff;
+}
+
 /* Table */
 table {
     color:#CCC;
