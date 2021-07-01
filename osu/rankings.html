@@ -85,6 +85,33 @@
                                 
                                 case "thits":
                                     return b.total_hits - a.total_hits;
+                                
+                                case "post":
+                                    return b.post_count - a.post_count;
+                                
+                                case "follow":
+                                    return b.follower_count - a.follower_count;
+                                
+                                case "followm":
+                                    return b.mapping_follower_count - a.mapping_follower_count;
+                                
+                                case "kudosut":
+                                    return b.kudosu.total - a.kudosu.total;
+                                
+                                case "kudosua":
+                                    return b.kudosu.available - a.kudosu.available;
+                                
+                                case "rankedm":
+                                    return b.ranked_beatmapset_count - a.ranked_beatmapset_count;
+                                
+                                case "lovedm":
+                                    return b.loved_beatmapset_count - a.loved_beatmapset_count;
+                                
+                                case "gandpm":
+                                    return (b.graveyard_beatmapset_count + b.pending_beatmapset_count) - (a.graveyard_beatmapset_count + a.pending_beatmapset_count);
+                                
+                                case "medal":
+                                    return b - a;
                             }
                         });
                         
@@ -106,7 +133,15 @@
                                 + "<td>" + data[i].grade_counts.a + "</td>"
                                 + "<td>" + data[i].maximum_combo.toLocaleString() + "x</td>"
                                 + "<td>" + data[i].total_hits.toLocaleString() + "</td>"
-                                + "<td></td>"
+                                + "<td>" + data[i].post_count + "</td>"
+                                + "<td>" + data[i].follower_count + "</td>"
+                                + "<td>" + data[i].mapping_follower_count + "</td>"
+                                + "<td>" + data[i].kudosu.total + "</td>"
+                                + "<td>" + data[i].kudosu.available + "</td>"
+                                + "<td>" + data[i].ranked_beatmapset_count + "</td>"
+                                + "<td>" + data[i].loved_beatmapset_count + "</td>"
+                                + "<td>" + (data[i].graveyard_beatmapset_count + data[i].pending_beatmapset_count) + "</td>"
+                                + "<td>-</td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
@@ -130,9 +165,10 @@
         <div id="header"></div>
         <div style="display: none" id="getJson"></div>
         <h1 id="back"><a href=".">Back</a></h1>
-        <h1>TODO: Get Medal Data</h1>
+        <h1 id="title">Rankings</h1>
         <h1 id="lUpdate">Last Updated: </h1>
         <h1 id="dAmount">Data Amount: </h1>
+        <h1>TODO: Get Medal Data</h1>
         <table id= "userdata" border="2">
             <thead>
                 <th>Count</th>
@@ -151,6 +187,14 @@
                 <th>A<button type="button" onclick="localStorage.setItem('sortby', 'a'); window.location.reload();">/\</button></th>
                 <th>Maximum Combo<button type="button" onclick="localStorage.setItem('sortby', 'mcombo'); window.location.reload();">/\</button></th>
                 <th>Total Hits<button type="button" onclick="localStorage.setItem('sortby', 'thits'); window.location.reload();">/\</button></th>
+                <th>Post Count<button type="button" onclick="localStorage.setItem('sortby', 'post'); window.location.reload();">/\</button></th>
+                <th>Follower Count<button type="button" onclick="localStorage.setItem('sortby', 'follow'); window.location.reload();">/\</button></th>
+                <th>Map Follower Count<button type="button" onclick="localStorage.setItem('sortby', 'followm'); window.location.reload();">/\</button></th>
+                <th>Kudosu Total<button type="button" onclick="localStorage.setItem('sortby', 'kudosut'); window.location.reload();">/\</button></th>
+                <th>Kudosu Available<button type="button" onclick="localStorage.setItem('sortby', 'kudosua'); window.location.reload();">/\</button></th>
+                <th>Ranked Map Count<button type="button" onclick="localStorage.setItem('sortby', 'rankedm'); window.location.reload();">/\</button></th>
+                <th>Loved Map Count<button type="button" onclick="localStorage.setItem('sortby', 'lovedm'); window.location.reload();">/\</button></th>
+                <th>Graved and Pending Map Count<button type="button" onclick="localStorage.setItem('sortby', 'gandpm'); window.location.reload();">/\</button></th>
                 <th>Medal Count<button type="button" onclick="localStorage.setItem('sortby', 'medal'); window.location.reload();">/\</button></th>
             </thead>
             <tbody></tbody>
