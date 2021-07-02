@@ -20,22 +20,23 @@
         <script>            
             $(document).ready(function() {
                 var file = './data/main.json';
-                var req = new XMLHttpRequest();
-                req.open("HEAD", file, false);
-                req.send(null);
-                if (req.status== 200)
-                {
-                    $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
-                    $("#dAmount").append(data.length + " players");
-                }
-                else
-                {
-                    $("#lUpdate").append("ERROR");
-                    $("#dAmount").append("ERROR");
-                    return;
-                }
                 $('#getJson').click(function(){
                     $.getJSON(file, function(data) {
+                        var req = new XMLHttpRequest();
+                        req.open("HEAD", file, false);
+                        req.send(null);
+                        if (req.status== 200)
+                        {
+                            $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
+                            $("#dAmount").append(data.length + " players");
+                        }
+                        else
+                        {
+                            $("#lUpdate").append("ERROR");
+                            $("#dAmount").append("ERROR");
+                            return;
+                        }
+
                         sorting = localStorage.getItem("sortby");
                         data.sort(function(a, b) {
                             switch (sorting)
