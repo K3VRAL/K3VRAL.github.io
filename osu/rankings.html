@@ -54,7 +54,7 @@
                                     return b.play_count - a.play_count;
                                 
                                 case "playtime":
-                                    return b.play_time - a.play_time;
+                                    return (b.play_time / 60 / 60) - (a.play_time / 60 / 60);
                                 
                                 case "replay":
                                     return b.replays_watched_by_others - a.replays_watched_by_others;
@@ -128,7 +128,7 @@
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a id=\"usrid\" href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
                                 + "<td>" + data[i].play_count.toLocaleString() + "</td>"
-                                + "<td>" + data[i].play_time.toLocaleString() + "</td>"
+                                + "<td>" + (data[i].play_time / 60 / 60).toLocaleString() + " hrs</td>"
                                 + "<td>" + data[i].replays_watched_by_others.toLocaleString() + "</td>"
                                 + "<td>" + data[i].scores_first_count.toLocaleString() + "</td>"
                                 + "<td>" + data[i].ranked_score.toLocaleString() + "</td>"
