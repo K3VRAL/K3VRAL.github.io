@@ -113,8 +113,8 @@
                                 case "gandpm":
                                     return (b.graveyard_beatmapset_count + b.pending_beatmapset_count) - (a.graveyard_beatmapset_count + a.pending_beatmapset_count);
                                 
-                                case "medal":
-                                    return b.user_achievements.length - a.user_achievements.length;
+                                //case "medal":
+                                //    return b.user_achievements.length - a.user_achievements.length;
                             }
                         });
                         
@@ -145,7 +145,7 @@
                                 + "<td>" + data[i].ranked_beatmapset_count + "</td>"
                                 + "<td>" + data[i].loved_beatmapset_count + "</td>"
                                 + "<td>" + (data[i].graveyard_beatmapset_count + data[i].pending_beatmapset_count) + "</td>"
-                                + "<td>" + data[i].user_achievements.length + "</td>"
+                                + "<td>" + /*data[i].user_achievements.length*/ + "</td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
