@@ -53,6 +53,9 @@
                                 case "playcount":
                                     return b.play_count - a.play_count;
                                 
+                                case "playtime":
+                                    return b.play_time - a.play_time;
+                                
                                 case "replay":
                                     return b.replays_watched_by_others - a.replays_watched_by_others;
                                 
@@ -124,7 +127,8 @@
                                 + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a id=\"usrid\" href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
-                                + "<td>" + data[i].play_count + "</td>"
+                                + "<td>" + data[i].play_count.toLocaleString() + "</td>"
+                                + "<td>" + data[i].play_time.toLocaleString() + "</td>"
                                 + "<td>" + data[i].replays_watched_by_others.toLocaleString() + "</td>"
                                 + "<td>" + data[i].scores_first_count.toLocaleString() + "</td>"
                                 + "<td>" + data[i].ranked_score.toLocaleString() + "</td>"
@@ -180,6 +184,7 @@
                 <th>Country<button type="button" onclick="localStorage.setItem('sortby', 'country'); window.location.reload();">/\</button></th>
                 <th>Name<button type="button" onclick="localStorage.setItem('sortby', 'name'); window.location.reload();">/\</button></th>
                 <th>Playcount<button type="button" onclick="localStorage.setItem('sortby', 'playcount'); window.location.reload();">/\</button></th>
+                <th>Playtime<button type="button" onclick="localStorage.setItem('sortby', 'playtime'); window.location.reload();">/\</button></th>
                 <th>Replays Watched<button type="button" onclick="localStorage.setItem('sortby', 'replay'); window.location.reload();">/\</button></th>
                 <th>First Place<button type="button" onclick="localStorage.setItem('sortby', 'first'); window.location.reload();">/\</button></th>
                 <th>Ranked Score<button type="button" onclick="localStorage.setItem('sortby', 'rscore'); window.location.reload();">/\</button></th>
