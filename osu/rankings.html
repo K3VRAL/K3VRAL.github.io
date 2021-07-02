@@ -20,23 +20,22 @@
         <script>            
             $(document).ready(function() {
                 var file = './data/main.json';
+                var req = new XMLHttpRequest();
+                req.open("HEAD", file, false);
+                req.send(null);
+                if (req.status== 200)
+                {
+                    $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
+                    $("#dAmount").append(data.length + " players");
+                }
+                else
+                {
+                    $("#lUpdate").append("ERROR");
+                    $("#dAmount").append("ERROR");
+                    return;
+                }
                 $('#getJson').click(function(){
                     $.getJSON(file, function(data) {
-                        var req = new XMLHttpRequest();
-                        req.open("HEAD", file, false);
-                        req.send(null);
-                        if (req.status== 200)
-                        {
-                            $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
-                            $("#dAmount").append(data.length + " players");
-                        }
-                        else
-                        {
-                            $("#lUpdate").append("ERROR");
-                            $("#dAmount").append("ERROR");
-                            return;
-                        }
-
                         sorting = localStorage.getItem("sortby");
                         data.sort(function(a, b) {
                             switch (sorting)
@@ -49,6 +48,9 @@
                                 
                                 case "name":
                                     return a.user.username.toUpperCase().localeCompare(b.user.username.toUpperCase());
+                                
+                                case "playcount":
+                                    return b.play_count - a.play_count;
                                 
                                 case "replay":
                                     return b.replays_watched_by_others - a.replays_watched_by_others;
@@ -111,7 +113,7 @@
                                     return (b.graveyard_beatmapset_count + b.pending_beatmapset_count) - (a.graveyard_beatmapset_count + a.pending_beatmapset_count);
                                 
                                 case "medal":
-                                    return b - a;
+                                    return b.user_achievements.length - a.user_achievements.length;
                             }
                         });
                         
@@ -121,6 +123,7 @@
                                 + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a id=\"usrid\" href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
+                                + "<td>" + data[i].play_count + "</td>"
                                 + "<td>" + data[i].replays_watched_by_others.toLocaleString() + "</td>"
                                 + "<td>" + data[i].scores_first_count.toLocaleString() + "</td>"
                                 + "<td>" + data[i].ranked_score.toLocaleString() + "</td>"
@@ -141,7 +144,7 @@
                                 + "<td>" + data[i].ranked_beatmapset_count + "</td>"
                                 + "<td>" + data[i].loved_beatmapset_count + "</td>"
                                 + "<td>" + (data[i].graveyard_beatmapset_count + data[i].pending_beatmapset_count) + "</td>"
-                                + "<td>-</td>"
+                                + "<td>" + data[i].user_achievements.length + "</td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
@@ -175,6 +178,7 @@
                 <th>Global Rank<button type="button" onclick="localStorage.setItem('sortby', 'rank'); window.location.reload();">/\</button></th>
                 <th>Country<button type="button" onclick="localStorage.setItem('sortby', 'country'); window.location.reload();">/\</button></th>
                 <th>Name<button type="button" onclick="localStorage.setItem('sortby', 'name'); window.location.reload();">/\</button></th>
+                <th>Playcount<button type="button" onclick="localStorage.setItem('sortby', 'playcount'); window.location.reload();">/\</button></th>
                 <th>Replays Watched<button type="button" onclick="localStorage.setItem('sortby', 'replay'); window.location.reload();">/\</button></th>
                 <th>First Place<button type="button" onclick="localStorage.setItem('sortby', 'first'); window.location.reload();">/\</button></th>
                 <th>Ranked Score<button type="button" onclick="localStorage.setItem('sortby', 'rscore'); window.location.reload();">/\</button></th>
