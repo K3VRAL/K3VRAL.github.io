@@ -20,23 +20,20 @@
         <script>            
             $(document).ready(function() {
                 var file = './data/main.json';
-                $('#getJson').click(function(){
-                    $.getJSON(file, function(data) {
-                        var req = new XMLHttpRequest();
-                        req.open("HEAD", file, false);
-                        req.send(null);
-                        if (req.status== 200)
-                        {
-                            $("#lUpdate").append(req.getResponseHeader("Last-Modified"));
-                            $("#dAmount").append(data.length + " players");
-                        }
-                        else
-                        {
-                            $("#lUpdate").append("ERROR");
-                            $("#dAmount").append("ERROR");
-                            return;
-                        }
+                $.getJSON(file, function(data) {
+                    var req = new XMLHttpRequest();
+                    req.open("HEAD", file, false);
+                    req.send(null);
+                    if (req.status== 200)
+                    {
+                        $("#lUpdate").append("Last Updated: " + req.getResponseHeader("Last-Modified"));
+                            $("#dAmount").append("Data Amount: " + data.length + " players");
+                    }
+                    $("#cSorted").append("Currently Sorted By: " + localStorage.getItem("sortby"));
+                });
 
+                $('#getJson').click(function() {
+                    $.getJSON(file, function(data) {
                         sorting = localStorage.getItem("sortby");
                         data.sort(function(a, b) {
                             switch (sorting)
@@ -50,9 +47,12 @@
                                 case "name":
                                     return a.user.username.toUpperCase().localeCompare(b.user.username.toUpperCase());
                                 
+                                case "level":
+                                    return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
+                                
                                 case "playcount":
                                     return b.play_count - a.play_count;
-                                
+
                                 case "playtime":
                                     return (b.play_time / 60 / 60) - (a.play_time / 60 / 60);
                                 
@@ -67,9 +67,6 @@
                                 
                                 case "tscore":
                                     return b.total_score - a.total_score;
-                                
-                                case "level":
-                                    return (b.level.current * (b.level.progress / 100)) - (a.level.current * (b.level.progress / 100));
                                 
                                 case "ssh":
                                     return b.grade_counts.ssh - a.grade_counts.ssh;
@@ -116,8 +113,8 @@
                                 case "gandpm":
                                     return (b.graveyard_beatmapset_count + b.pending_beatmapset_count) - (a.graveyard_beatmapset_count + a.pending_beatmapset_count);
                                 
-                                //case "medal":
-                                //    return b.user_achievements.length - a.user_achievements.length;
+                                case "medal":
+                                    return b.user_achievements.length - a.user_achievements.length;
                             }
                         });
                         
@@ -127,29 +124,29 @@
                                 + "<td>#" + data[i].global_rank.toLocaleString() + " (" + Math.floor(data[i].pp).toLocaleString() + " pp)</td>"
                                 + "<td>" + data[i].user.country.name + "</td>"
                                 + "<td><a id=\"usrid\" href=\"https://osu.ppy.sh/users/" + data[i].user.id + "\">" + data[i].user.username + "</a></td>"
+                                + "<td>" + data[i].level.current + " (" + data[i].level.progress + "%) </td>"
                                 + "<td>" + data[i].play_count.toLocaleString() + "</td>"
                                 + "<td>" + (data[i].play_time / 60 / 60).toLocaleString() + " hrs</td>"
                                 + "<td>" + data[i].replays_watched_by_others.toLocaleString() + "</td>"
                                 + "<td>" + data[i].scores_first_count.toLocaleString() + "</td>"
                                 + "<td>" + data[i].ranked_score.toLocaleString() + "</td>"
                                 + "<td>" + data[i].total_score.toLocaleString() + "</td>"
-                                + "<td>" + data[i].level.current + " (" + data[i].level.progress + "%) </td>"
-                                + "<td>" + data[i].grade_counts.ssh + "</td>"
-                                + "<td>" + data[i].grade_counts.ss + "</td>"
-                                + "<td>" + data[i].grade_counts.sh + "</td>"
-                                + "<td>" + data[i].grade_counts.s + "</td>"
-                                + "<td>" + data[i].grade_counts.a + "</td>"
+                                + "<td>" + data[i].grade_counts.ssh.toLocaleString() + "</td>"
+                                + "<td>" + data[i].grade_counts.ss.toLocaleString() + "</td>"
+                                + "<td>" + data[i].grade_counts.sh.toLocaleString() + "</td>"
+                                + "<td>" + data[i].grade_counts.s.toLocaleString() + "</td>"
+                                + "<td>" + data[i].grade_counts.a.toLocaleString() + "</td>"
                                 + "<td>" + data[i].maximum_combo.toLocaleString() + "x</td>"
                                 + "<td>" + data[i].total_hits.toLocaleString() + "</td>"
-                                + "<td>" + data[i].post_count + "</td>"
-                                + "<td>" + data[i].follower_count + "</td>"
-                                + "<td>" + data[i].mapping_follower_count + "</td>"
-                                + "<td>" + data[i].kudosu.total + "</td>"
-                                + "<td>" + data[i].kudosu.available + "</td>"
-                                + "<td>" + data[i].ranked_beatmapset_count + "</td>"
-                                + "<td>" + data[i].loved_beatmapset_count + "</td>"
-                                + "<td>" + (data[i].graveyard_beatmapset_count + data[i].pending_beatmapset_count) + "</td>"
-                                + "<td>" + /*data[i].user_achievements.length*/ + "</td>"
+                                + "<td>" + data[i].post_count.toLocaleString() + "</td>"
+                                + "<td>" + data[i].follower_count.toLocaleString() + "</td>"
+                                + "<td>" + data[i].mapping_follower_count.toLocaleString() + "</td>"
+                                + "<td>" + data[i].kudosu.total.toLocaleString() + "</td>"
+                                + "<td>" + data[i].kudosu.available.toLocaleString() + "</td>"
+                                + "<td>" + data[i].ranked_beatmapset_count.toLocaleString() + "</td>"
+                                + "<td>" + data[i].loved_beatmapset_count.toLocaleString() + "</td>"
+                                + "<td>" + (data[i].graveyard_beatmapset_count + data[i].pending_beatmapset_count).toLocaleString() + "</td>"
+                                + "<td>" + data[i].user_achievements.length.toLocaleString() + "</td>"
                             $(tblRow).appendTo("#userdata tbody");
                         }
                     });
@@ -174,22 +171,22 @@
         <div style="display: none" id="getJson"></div>
         <h1 id="back"><a href=".">Back</a></h1>
         <h1 id="title">Rankings</h1>
-        <h1 id="lUpdate">Last Updated: </h1>
-        <h1 id="dAmount">Data Amount: </h1>
-        <h1>TODO: Get Medal Data</h1>
+        <h1 id="lUpdate"></h1>
+        <h1 id="dAmount"></h1>
+        <h1 id="cSorted"></h1>
         <table id= "userdata" border="2">
             <thead>
                 <th>Count</th>
                 <th>Global Rank<button type="button" onclick="localStorage.setItem('sortby', 'rank'); window.location.reload();">/\</button></th>
                 <th>Country<button type="button" onclick="localStorage.setItem('sortby', 'country'); window.location.reload();">/\</button></th>
                 <th>Name<button type="button" onclick="localStorage.setItem('sortby', 'name'); window.location.reload();">/\</button></th>
+                <th>Level<button type="button" onclick="localStorage.setItem('sortby', 'level'); window.location.reload();">/\</button></th>
                 <th>Playcount<button type="button" onclick="localStorage.setItem('sortby', 'playcount'); window.location.reload();">/\</button></th>
                 <th>Playtime<button type="button" onclick="localStorage.setItem('sortby', 'playtime'); window.location.reload();">/\</button></th>
                 <th>Replays Watched<button type="button" onclick="localStorage.setItem('sortby', 'replay'); window.location.reload();">/\</button></th>
                 <th>First Place<button type="button" onclick="localStorage.setItem('sortby', 'first'); window.location.reload();">/\</button></th>
                 <th>Ranked Score<button type="button" onclick="localStorage.setItem('sortby', 'rscore'); window.location.reload();">/\</button></th>
                 <th>Total Score<button type="button" onclick="localStorage.setItem('sortby', 'tscore'); window.location.reload();">/\</button></th>
-                <th>Level<button type="button" onclick="localStorage.setItem('sortby', 'level'); window.location.reload();">/\</button></th>
                 <th>SSH<button type="button" onclick="localStorage.setItem('sortby', 'ssh'); window.location.reload();">/\</button></th>
                 <th>SS<button type="button" onclick="localStorage.setItem('sortby', 'ss'); window.location.reload();">/\</button></th>
                 <th>SH<button type="button" onclick="localStorage.setItem('sortby', 'sh'); window.location.reload();">/\</button></th>
